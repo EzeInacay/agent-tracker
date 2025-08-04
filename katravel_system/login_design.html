@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern Login Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background: #000;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+    }
+
+    .left-panel {
+      flex: 1;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 50px;
+      background-image: url('https://www.transparenttextures.com/patterns/black-linen.png'); /* optional texture */
+    }
+
+    .left-panel h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+
+    .nav {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .right-panel {
+      flex: 1;
+      background: white;
+      border-radius: 40px 0 0 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      width: 80%;
+      max-width: 350px;
+      text-align: center;
+      color: black;
+    }
+
+    .login-box h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px 15px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    .login-options {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin: 10px 0;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: #000;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+
+    .divider {
+      margin: 15px 0;
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    .signup-btn {
+      width: 100%;
+      padding: 12px;
+      background: #eee;
+      color: #333;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .right-panel {
+        border-radius: 40px 40px 0 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <div>
+        <h1>Welcome Back!</h1>
+        <div class="nav">
+          <a href="#">Home</a>
+          <a href="#">About Us</a>
+          <a href="#">Contact</a>
+          <a href="#">Log In</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="login-box">
+        <h2>Log in</h2>
+        <form>
+          <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter username" />
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter password" />
+          </div>
+          <div class="login-options">
+            <label><input type="checkbox" /> Remember Me</label>
+            <a href="#">Forgot Password?</a>
+          </div>
+          <button class="login-btn" type="submit">Log in</button>
+          <div class="divider">OR</div>
+          <button class="signup-btn" type="button">Sign up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Visvis Booking System</title>
+  <!-- 🔗 Connect CSS here -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+
+  <div class="login-container">
+    <h2>Login</h2>
+ <form action="login_admin.php" method="POST">
+  <label for="role">Login as:</label>
+  <select name="role" id="role" required>
+    <option value="agent">Agent</option>
+    <option value="admin">Admin</option>
+  </select>
+
+  <label for="username">ID:</label>
+  <input type="text" id="username" name="user_id" placeholder="Login" required>
+
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+  <button type="submit">Login</button>
+</form>
+  </div>
+
+</body>
+</html>
