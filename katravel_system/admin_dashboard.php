@@ -37,12 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_agent"])) {
 <head>
   <meta charset="UTF-8">
   <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin_dashboard.css">
 </head>
 <body>
   <!-- Top navigation bar -->
   <nav class="navbar">
-    <div class="navbar-left">🛠️ Welcome, <?php echo htmlspecialchars($adminName); ?></div>
+    <div class="navbar-left">Welcome, <?php echo htmlspecialchars($adminName); ?></div>
     <div class="navbar-right">
       <a href="#manage-agents">Manage Agents</a>
       <a href="#">Reports</a>
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_agent"])) {
   <main class="dashboard-content">
     <h2 id="manage-agents">Manage Agents</h2>
 
-    <!-- Form for adding a new agent -->
+    <!-- Add New Agent Form -->
     <form class="agent-form" method="POST">
       <h3>Add New Agent</h3>
       <label>Agent ID:
@@ -69,37 +69,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_agent"])) {
       <button type="submit" name="add_agent">Add Agent</button>
     </form>
 
-    <!-- Table showing all registered agents -->
-    <h3>Existing Agents</h3>
-    <table class="booking-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Agent ID</th>
-          <th>Agent Name</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        // Query all agents from the 'users' table
-        $result = $conn->query("SELECT * FROM users");
-        while ($row = $result->fetch_assoc()) {
-          echo "<tr>
-                  <td>" . htmlspecialchars($row['agent_id']) . "</td>
-                  <td>" . htmlspecialchars($row['agent_id']) . "</td>
-                  <td>" . htmlspecialchars($row['agent_name']) . "</td>
-                  <td>
-          <a href='edit_agent.php?agent_id=" . urlencode($row['agent_id']) . "'><button>Edit</button></a>
-          <a href='delete_agent.php?agent_id=" . urlencode($row['agent_id']) . "' onclick=\"return confirm('Are you sure you want to delete this agent?');\"><button>Delete</button></a>
-        </td>
-                </tr>";
-        }
-        $conn->close(); // Close DB connection after use
-        ?>
-      </tbody>
-    </table>
+    <!-- Separated Table Container for Existing Agents -->
+    <div class="agents-table-container">
+      <h3>Existing Agents</h3>
+      <table class="booking-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Agent ID</th>
+            <th>Agent Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          // Query all agents from the 'users' table
+          $result = $conn->query("SELECT * FROM users");
+          while ($row = $result->fetch_assoc()) {
+              echo "<tr>
+                      <td>" . htmlspecialchars($row['agent_id']) . "</td>
+                      <td>" . htmlspecialchars($row['agent_id']) . "</td>
+                      <td>" . htmlspecialchars($row['agent_name']) . "</td>
+                      <td>
+                        <a href='edit_agent.php?agent_id=" . urlencode($row['agent_id']) . "'><button>Edit</button></a>
+                        <a href='delete_agent.php?agent_id=" . urlencode($row['agent_id']) . "' onclick=\"return confirm('Are you sure you want to delete this agent?');\"><button>Delete</button></a>
+                      </td>
+                    </tr>";
+          }
+          $conn->close(); // Close DB connection
+          ?>
+        </tbody>
+      </table>
+    </div>
   </main>
 </body>
 </html>
-
