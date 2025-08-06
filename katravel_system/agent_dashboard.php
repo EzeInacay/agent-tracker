@@ -153,7 +153,6 @@ $result = $stmt->get_result();
     <div>👤 Agent: <?php echo htmlspecialchars($agentName); ?></div>
     <div>
       <a href="#">Dashboard</a>
-      <a href="#">Bookings</a>
       <a href="logout.php">Logout</a>
     </div>
   </div>
@@ -235,4 +234,5 @@ $result = $stmt->get_result();
 
 <?php
 $conn->close();
+
 ?>
