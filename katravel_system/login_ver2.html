@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Visvis Travel</title>
+  <link rel="stylesheet" href="login_ver2.css">
+</head>
+<body>
+  <!-- LEFT SIDE -->
+  <div class="left-side">
+    <div>
+      <h1>Welcome Back!</h1>
+      <nav>
+        <a onclick="toggleContactPanel()">Contact us</a>
+      </nav>
+
+      <!-- Contact Panel BELOW "Contact us" -->
+      <div class="contact-box" id="contactBox">
+        <h3>Contact Us</h3>
+        <ul>
+          <li>📧 info@visvistravel.ph</li>
+          <li>📞 09757000655</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="right-side">
+    <form class="login-form">
+      <h2>Log in</h2>
+      <input type="text" placeholder="Enter username" required>
+      <input type="password" placeholder="Enter password" required>
+
+      <label>
+        <input type="checkbox"> Remember Me
+      </label>
+
+      <button type="submit" class="login-btn">Log in</button>
+      <p>OR</p>
+      <button type="button" class="signup-btn">Sign up</button>
+    </form>
+  </div>
+
+  <!-- Toggle Script -->
+  <script>
+    function toggleContactPanel() {
+      const box = document.getElementById("contactBox");
+      box.classList.toggle("show");
+    }
+  </script>
+</body>
+</html>
