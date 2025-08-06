@@ -38,7 +38,7 @@ if ($role == 'admin') {
     $result = $stmt->get_result();
     
     if ($result->num_rows === 1) {
-        $row = $result->fetch_assoc(); // 🔥 This was missing!
+        $row = $result->fetch_assoc(); 
         $_SESSION['agent_id'] = $row['agent_id'];
         $_SESSION['agent_name'] = $row['agent_name'];
         header("Location: agent_dashboard.php");

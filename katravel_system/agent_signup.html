@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Agent Signup</title>
+    <link rel="stylesheet" href="signup.css">
+    <script>
+        function validateForm() {
+            const pw1 = document.getElementById("password").value;
+            const pw2 = document.getElementById("retype_password").value;
+
+            if (pw1 !== pw2) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h2>New Agent Signup</h2>
+    <form action="process_signup.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+
+        <label>Full Name:</label>
+        <input type="text" name="full_name" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Password:</label>
+        <input type="password" name="password" id="password" required>
+
+        <label>Retype Password:</label>
+        <input type="password" id="retype_password" required>
+
+        <label>Contact Number:</label>
+        <input type="text" name="contact" required>
+
+        <label>Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+
+        <label>Upload 2x2 Picture:</label>
+        <input type="file" name="picture" accept="image/*" required>
+
+        <button type="submit" class="submit-btn">Submit Registration</button>
+		<button type="button" class="cancel-btn" onclick="window.location.href='login.html'">Cancel Registration</button>
+    </form>
+</div>
+
+</body>
+</html>
