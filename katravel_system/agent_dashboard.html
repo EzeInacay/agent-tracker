@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agent Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Navigation Bar (Logout removed) -->
+<nav class="navbar navbar-dark bg-primary">
+    <span class="navbar-brand">Agent Dashboard <?php echo htmlspecialchars($full_name); ?></span>
+</nav>
+
+<!-- Dashboard Content -->
+<div class="container mt-4">
+    <div class="row">
+        <!-- Booking Status Card -->
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h5>Booking Status</h5>
+                <p>Total Bookings: <strong>--</strong></p>
+                <p>Confirmed: <strong>--</strong></p>
+                <p>Pending: <strong>--</strong></p>
+            </div>
+        </div>
+
+        <!-- Earnings -->
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h5>Earnings</h5>
+                <p>This Week: <strong>₱--</strong></p>
+                <p>Total: <strong>₱--</strong></p>
+            </div>
+        </div>
+
+        <!-- Payout Info -->
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h5>Payouts</h5>
+                <p>Last: <strong>--</strong></p>
+                <p>Next: <strong>--</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
