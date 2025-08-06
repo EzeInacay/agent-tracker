@@ -90,9 +90,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_agent"])) {
                   <td>" . htmlspecialchars($row['agent_id']) . "</td>
                   <td>" . htmlspecialchars($row['agent_name']) . "</td>
                   <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                  </td>
+          <a href='edit_agent.php?agent_id=" . urlencode($row['agent_id']) . "'><button>Edit</button></a>
+          <a href='delete_agent.php?agent_id=" . urlencode($row['agent_id']) . "' onclick=\"return confirm('Are you sure you want to delete this agent?');\"><button>Delete</button></a>
+        </td>
                 </tr>";
         }
         $conn->close(); // Close DB connection after use
@@ -102,3 +102,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_agent"])) {
   </main>
 </body>
 </html>
+
