@@ -2,32 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login | Visvis Booking System</title>
-  <!-- 🔗 Connect CSS here -->
-  <link rel="stylesheet" href="style.css">
+  <title>Login | Visvis Travel</title>
+  <link rel="stylesheet" href="login.css">
 </head>
-<body class="login-page">
 
-  <div class="login-container">
-    <h2>Login</h2>
- <form action="login_admin.php" method="POST">
-  <label for="role">Login as:</label>
-  <select name="role" id="role" required>
-    <option value="agent">Agent</option>
-    <option value="admin">Admin</option>
-  </select>
-
-  <label for="username">ID:</label>
-  <input type="text" id="username" name="user_id" placeholder="Login" required>
-
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password" placeholder="Enter your password" required>
-
-  <button type="submit">Login</button>
-</form>
+<body>
+  <!-- LEFT SIDE CONTENT -->
+  <div class="left-side">
+    <div>
+      <h1>Welcome Back!</h1>
+      <nav style="margin-top: 20px;">
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
   </div>
 
+  <!-- RIGHT SIDE: Login form with blur effect -->
+  <div class="right-side">
+    <form class="login-form" action="login_admin.php" method="POST">
+      <h2>Log in</h2>
+
+      <!-- Role selection -->
+      <select name="role" id="role" required>
+        <option value="agent">Agent</option>
+        <option value="admin">Admin</option>
+      </select>
+
+      <!-- ID input -->
+      <input type="text" id="username" name="user_id" placeholder="Login" required>
+
+      <!-- Password input -->
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+      <!-- Remember me checkbox -->
+      <label>
+        <input type="checkbox"> Remember Me
+      </label>
+
+      <!-- Submit button -->
+      <button type="submit" class="login-btn">Log in</button>
+
+      <p>OR</p>
+
+      <!-- Sign-up button -->
+      <button type="button" class="signup-btn">Sign up</button>
+    </form>
+  </div>
 </body>
 </html>
-
-
