@@ -23,11 +23,10 @@ $sql = "
     SELECT 
         b.client_name, 
         b.hotel_booked, 
-        bs.booking_status, 
-        bs.earnings, 
-        bs.payout_date
+        b.start_date,
+        b.end_date,
+        b.final_price
     FROM bookings b
-    JOIN booking_status bs ON b.booking_id = bs.booking_id
     WHERE b.agent_id = ?
     ORDER BY b.booking_id DESC
 ";
@@ -89,37 +88,74 @@ $result = $stmt->get_result();
     </form>
 
     <h2>Booking History</h2>
-    <table class="booking-table">
-      <thead>
+<table class="booking-table">
+  <thead>
+    <tr>
+      <th>Client</th>
+      <th>Hotel</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Final Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php if ($result->num_rows > 0): ?>
+      <?php while($row = $result->fetch_assoc()): ?>
         <tr>
-          <th>Client</th>
-          <th>Hotel</th>
-          <th>Status</th>
-          <th>Earnings</th>
-          <th>Payout Date</th>
+          <td><?php echo htmlspecialchars($row['client_name']); ?></td>
+          <td><?php echo htmlspecialchars($row['hotel_booked']); ?></td>
+          <td><?php echo htmlspecialchars($row['start_date']); ?></td>
+          <td><?php echo htmlspecialchars($row['end_date']); ?></td>
+          <td>₱<?php echo number_format($row['final_price'], 2); ?></td>
         </tr>
-      </thead>
-      <tbody>
-        <?php if ($result->num_rows > 0): ?>
-          <?php while($row = $result->fetch_assoc()): ?>
-            <tr>
-              <td><?php echo htmlspecialchars($row['client_name']); ?></td>
-              <td><?php echo htmlspecialchars($row['hotel_booked']); ?></td>
-              <td><?php echo htmlspecialchars($row['booking_status']); ?></td>
-              <td>₱<?php echo number_format($row['earnings'], 2); ?></td>
-              <td><?php echo $row['payout_date'] ?: 'N/A'; ?></td>
-            </tr>
-          <?php endwhile; ?>
-        <?php else: ?>
-          <tr>
-            <td colspan="5">No bookings found.</td>
-          </tr>
-        <?php endif; ?>
-      </tbody>
-    </table>
+      <?php endwhile; ?>
+    <?php else: ?>
+      <tr>
+        <td colspan="5">No bookings found.</td>
+      </tr>
+    <?php endif; ?>
+  </tbody>
+</table>
   </main>
 </body>
 </html>
 <?php
 $conn->close();
 ?>
+
+<!-- Booking History -->
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>Client Name</th>
+            <th>Hotel Booked</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Total Price</th>
+            <th>Ratehawk Price</th>
+            <th>Final Price</th>
+            <th>Status</th>
+            <th>Earnings</th>
+            <th>Payout Date</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php while ($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?= htmlspecialchars($row['booking_id']) ?></td>
+            <td><?= htmlspecialchars($row['client_name']) ?></td>
+            <td><?= htmlspecialchars($row['hotel_booked']) ?></td>
+            <td><?= htmlspecialchars($row['start_date']) ?></td>
+            <td><?= htmlspecialchars($row['end_date']) ?></td>
+            <td><?= htmlspecialchars($row['total_price']) ?></td>
+            <td><?= htmlspecialchars($row['ratehawk_price']) ?></td>
+            <td><?= htmlspecialchars($row['final_price']) ?></td>
+            <td><?= htmlspecialchars($row['booking_status']) ?></td>
+            <td><?= htmlspecialchars($row['earnings']) ?></td>
+            <td><?= htmlspecialchars($row['payout_date']) ?></td>
+        </tr>
+    <?php endwhile; ?>
+    </tbody>
+</table>
