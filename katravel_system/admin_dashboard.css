@@ -14,6 +14,7 @@ body {
   color: white;
   padding: 15px 30px;
   display: flex;
+  font-weight: bold;
   justify-content: space-between;
   align-items: center;
 }

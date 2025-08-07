@@ -29,24 +29,24 @@ $agentName = $_SESSION['agent_name'];
             box-shadow: 0 0 10px rgba(0,0,0,0.15);
         }
 
-        .navbar {
-            background-color: #007bff;
-            padding: 12px 20px;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      background: #007bff;
+      padding: 15px 30px;
+      font-weight: bold;
+      color: white;
+    }
 
-        .navbar a {
-            color: white;
-            margin-left: 20px;
-            text-decoration: none;
-        }
+    .navbar a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+    }
 
-        .navbar a:hover {
-            text-decoration: underline;
-        }
+    .navbar a:hover {
+      text-decoration: underline;
+    }
     </style>
 </head>
 
@@ -54,7 +54,7 @@ $agentName = $_SESSION['agent_name'];
 
 <!-- Navigation Bar -->
 <nav class="navbar">
-    <span class="navbar-brand text-white">👤 Agent: <?php echo htmlspecialchars($agentName); ?></span>
+    <span class="navbar-brand text-white">Agent: <?php echo htmlspecialchars($agentName); ?></span>
     <div>
         <a href="agent_dashboard.php">New Booking</a>
         <a href="logout.php">Logout</a>

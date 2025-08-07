@@ -81,9 +81,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_request"])) {
 
 <!-- Navbar -->
 <nav class="navbar">
-  <div class="navbar-left">🛠️ Welcome, <?php echo htmlspecialchars($adminName); ?></div>
+  <div class="navbar-left"> Welcome, <?php echo htmlspecialchars($adminName); ?></div>
   <div class="navbar-right">
-    <a href="#">Reports</a>
+    <a href="admin_bookings.php">Reports</a>
     <a href="logout.php">Logout</a>
   </div>
 </nav>

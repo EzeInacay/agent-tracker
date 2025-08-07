@@ -54,7 +54,7 @@ $result = $stmt->get_result();
       display: flex;
       justify-content: space-between;
       background: #007bff;
-      padding: 12px 20px;
+      padding: 15px 30px;
       font-weight: bold;
       color: white;
     }
@@ -150,9 +150,9 @@ $result = $stmt->get_result();
 
   <!-- Top Navigation Bar -->
   <div class="navbar">
-    <div>👤 Agent: <?php echo htmlspecialchars($agentName); ?></div>
+    <div>Agent: <?php echo htmlspecialchars($agentName); ?></div>
     <div>
-      <a href="#">Dashboard</a>
+      <a href="agent_payout.php">Dashboard</a>
       <a href="logout.php">Logout</a>
     </div>
   </div>
@@ -234,5 +234,4 @@ $result = $stmt->get_result();
 
 <?php
 $conn->close();
-
 ?>
