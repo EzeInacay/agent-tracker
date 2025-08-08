@@ -18,6 +18,7 @@ if ($conn->connect_error) {
 // Automated earnings: final_price - ratehawk_price
 $sql = "
     SELECT 
+        b.booking_id, 
         b.client_name, 
         b.hotel_booked, 
         bs.booking_status, 
@@ -28,6 +29,7 @@ $sql = "
     WHERE b.agent_id = ?
     ORDER BY b.booking_id DESC
 ";
+
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $agentId);
 $stmt->execute();
@@ -89,7 +91,42 @@ $result = $stmt->get_result();
                         <tr>
                             <td><?= htmlspecialchars($row['client_name']) ?></td>
                             <td><?= htmlspecialchars($row['hotel_booked']) ?></td>
-                            <td><?= htmlspecialchars($row['booking_status']) ?></td>
+<td>
+    <?php
+    $status = $row['booking_status'];
+    $bookingId = $row['booking_id'];
+    $statuses = ['Pending', 'Confirmed', 'Cancelled', 'Completed'];
+
+    $badgeColor = [
+        'Pending' => 'orange',
+        'Confirmed' => 'green',
+        'Cancelled' => 'red',
+        'Completed' => 'gray'
+    ];
+    ?>
+
+    <div class="status-container">
+        <?php if ($status !== 'Completed' && $status !== 'Cancelled'): ?>
+            <<form method="POST" action="update_status.php">
+				<input type="hidden" name="booking_id" value="<?= $bookingId ?>">
+				<select name="booking_status" style="background-color: <?= $badgeColor[$status] ?>;"
+					onchange="if (confirmStatusChange(this)) this.form.submit();">
+					<?php foreach ($statuses as $s): ?>
+						<option value="<?= $s ?>" <?= ($s === $status) ? 'selected' : '' ?>><?= $s ?></option>
+					<?php endforeach; ?>
+				</select>
+			</form>
+
+        <?php else: ?>
+            <span class="status-badge" style="background-color: <?= $badgeColor[$status] ?>;">
+                <?= $status ?>
+            </span>
+        <?php endif; ?>
+    </div>
+</td>
+
+
+
                             <td>₱<?= number_format($row['earnings'], 2) ?></td>
                             <td><?= $row['payout_date'] ?: 'N/A' ?></td>
                         </tr>
@@ -117,6 +154,10 @@ $result = $stmt->get_result();
 
 <!-- Embedded JavaScript -->
 <script>
+function confirmStatusChange(selectElement) {
+    const selectedStatus = selectElement.value;
+    return confirm("Are you sure you want to change the status to '" + selectedStatus + "'?");
+}
 function openLogoutModal() {
     document.getElementById('logoutModal').style.display = 'flex';
 }
