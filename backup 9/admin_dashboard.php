@@ -171,8 +171,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_request"])) {
       </tbody>
     </table>
   </div>
+<!-- Logout Confirmation Modal -->
+<div id="logoutModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <h4>Confirm Logout</h4>
+        <p>Are you sure you want to logout?</p>
+        <div class="modal-buttons">
+            <button onclick="confirmLogout()" class="btn btn-danger">Yes, Logout</button>
+            <button onclick="closeLogoutModal()" class="btn btn-secondary">Cancel</button>
+        </div>
+    </div>
+</div>
 
+<!-- Embedded JavaScript -->
+<script>
+function openLogoutModal() {
+    document.getElementById('logoutModal').style.display = 'flex';
+}
+
+function closeLogoutModal() {
+    document.getElementById('logoutModal').style.display = 'none';
+}
+
+function confirmLogout() {
+    window.location.href = 'logout.php';
+}
+</script>
 </main>
 
 </body>
 </html>
+
