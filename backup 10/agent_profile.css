@@ -1,0 +1,181 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('raw.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.navbar {
+    background-color: rgba(0, 123, 255, 0.95);
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.navbar .left, 
+.navbar .left strong {
+    font-weight: bold;
+}
+
+
+.container {
+    background-color: rgba(255, 255, 255, 0.88);
+    margin: 40px auto;
+    padding: 30px;
+    width: 95%;
+    max-width: 950px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.profile-left {
+    flex: 1;
+    text-align: center;
+}
+
+.profile-pic img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 3px solid #007bff;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.profile-right {
+    flex: 2;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.button-group {
+    margin-top: 25px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 12px 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.green {
+    background-color: #28a745;
+    color: white;
+}
+
+.green:hover {
+    background-color: #218838;
+}
+
+.gray {
+    background-color: #6c757d;
+    color: white;
+}
+
+.gray:hover {
+    background-color: #5a6268;
+}
+/* MODAL OVERLAY */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* MODAL CONTENT */
+.modal-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+}
+
+.modal-buttons button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.modal-buttons .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.modal-buttons .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}

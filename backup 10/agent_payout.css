@@ -1,0 +1,118 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('raw.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* NAVIGATION BAR */
+.navbar {
+    background-color: rgba(0, 123, 255, 0.95);
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.navbar .left strong {
+    font-weight: bold;
+}
+
+/* CONTAINER */
+.main-container {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* CARD CONTAINER */
+.card-container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+}
+
+/* DASHBOARD CARDS */
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    padding: 25px 30px;
+    width: 300px;
+    color: #333;
+    transition: transform 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+/* MODAL OVERLAY */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* MODAL CONTENT */
+.modal-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+}
+
+.modal-buttons button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.modal-buttons .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.modal-buttons .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
