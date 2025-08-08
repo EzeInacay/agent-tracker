@@ -49,10 +49,10 @@ if ($agent_id) {
         <div class="profile-left">
             <div class="profile-pic">
                 <?php
-                $profilePic = !empty($agentData['profile_pic']) ? 'uploads/' . htmlspecialchars($agentData['profile_pic']) : 'default-profile.png';
-                ?>
-                <img src="<?= $profilePic ?>" alt="Profile Picture" style="width:160px; height:160px; border-radius:50%; border:3px solid #007bff; object-fit:cover;">
-            </div>
+					$profilePic = !empty($agentData['profile_pic']) ? htmlspecialchars($agentData['profile_pic']) : 'default-profile.png';
+				?>
+					<img src="<?= $profilePic ?>" alt="Profile Picture" style="width:160px; height:160px; border-radius:50%; border:3px solid #007bff; object-fit:cover;">
+                        </div>
         </div>
 
         <div class="profile-right">
@@ -106,3 +106,4 @@ function confirmLogout() {
 
 </body>
 </html>
+
