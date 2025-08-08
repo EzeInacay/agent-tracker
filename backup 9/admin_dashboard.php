@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_request"])) {
   <div class="navbar-left">Welcome, <?php echo htmlspecialchars($adminName); ?></div>
   <div class="navbar-right">
     <a href="admin_bookings.php">Reports</a>
-    <a href="logout.php">Logout</a>
+    <a href="#" onclick="openLogoutModal()">Logout</a>
   </div>
 </nav>
 
@@ -201,4 +201,5 @@ function confirmLogout() {
 
 </body>
 </html>
+
 
