@@ -6,8 +6,94 @@ if (!isset($_SESSION['agent_id']) || !isset($_SESSION['agent_name'])) {
     exit();
 }
 
+$agentId = $_SESSION['agent_id'];
 $agentName = $_SESSION['agent_name'];
+
+// Connect to database
+$conn = new mysqli("localhost", "root", "", "katravel_system");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Total bookings
+$sql_total = "
+    SELECT COUNT(*) as total
+    FROM booking_status bs
+    INNER JOIN bookings b ON bs.booking_id = b.booking_id
+    WHERE b.agent_id = ?
+";
+$stmt = $conn->prepare($sql_total);
+$stmt->bind_param("s", $agentId);
+$stmt->execute();
+$totalBookings = $stmt->get_result()->fetch_assoc()['total'] ?? 0;
+
+// Confirmed bookings
+$sql_confirmed = "
+    SELECT COUNT(*) as confirmed
+    FROM booking_status bs
+    INNER JOIN bookings b ON bs.booking_id = b.booking_id
+    WHERE b.agent_id = ? AND bs.booking_status = 'Confirmed'
+";
+$stmt = $conn->prepare($sql_confirmed);
+$stmt->bind_param("s", $agentId);
+$stmt->execute();
+$confirmedBookings = $stmt->get_result()->fetch_assoc()['confirmed'] ?? 0;
+
+// Pending bookings
+$sql_pending = "
+    SELECT COUNT(*) as pending
+    FROM booking_status bs
+    INNER JOIN bookings b ON bs.booking_id = b.booking_id
+    WHERE b.agent_id = ? AND bs.booking_status = 'Pending'
+";
+$stmt = $conn->prepare($sql_pending);
+$stmt->bind_param("s", $agentId);
+$stmt->execute();
+$pendingBookings = $stmt->get_result()->fetch_assoc()['pending'] ?? 0;
+
+// Weekly earnings (using start_date as booking date)
+$sql_weekly = "
+    SELECT SUM(bs.earnings) as weekly
+    FROM booking_status bs
+    INNER JOIN bookings b ON bs.booking_id = b.booking_id
+    WHERE b.agent_id = ? AND bs.booking_status = 'Confirmed'
+      AND DATE(b.start_date) >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+";
+$stmt = $conn->prepare($sql_weekly);
+$stmt->bind_param("s", $agentId);
+$stmt->execute();
+$weeklyEarnings = $stmt->get_result()->fetch_assoc()['weekly'] ?? 0;
+
+// Total earnings
+$sql_total_earnings = "
+    SELECT SUM(bs.earnings) as total
+    FROM booking_status bs
+    INNER JOIN bookings b ON bs.booking_id = b.booking_id
+    WHERE b.agent_id = ? AND bs.booking_status = 'Confirmed'
+";
+$stmt = $conn->prepare($sql_total_earnings);
+$stmt->bind_param("s", $agentId);
+$stmt->execute();
+$totalEarnings = $stmt->get_result()->fetch_assoc()['total'] ?? 0;
+
+// Last payout
+$sql_last_payout = "
+    SELECT MAX(bs.payout_date) as last_payout
+    FROM booking_status bs
+    INNER JOIN bookings b ON bs.booking_id = b.booking_id
+    WHERE b.agent_id = ? AND bs.payout_date IS NOT NULL
+";
+$stmt = $conn->prepare($sql_last_payout);
+$stmt->bind_param("s", $agentId);
+$stmt->execute();
+$lastPayout = $stmt->get_result()->fetch_assoc()['last_payout'] ?? '--';
+
+// Next payout (every Friday)
+$nextPayout = date('Y-m-d', strtotime('next friday'));
+
+$conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,26 +116,27 @@ $agentName = $_SESSION['agent_name'];
 <!-- DASHBOARD CARDS -->
 <div class="main-container">
     <div class="card-container">
+
         <!-- Booking Status -->
         <div class="dashboard-card">
             <h3>📋 Booking Status</h3>
-            <p>Total Bookings: <strong>--</strong></p>
-            <p>Confirmed: <strong>--</strong></p>
-            <p>Pending: <strong>--</strong></p>
+            <p>Total Bookings: <strong><?= $totalBookings ?></strong></p>
+            <p>Confirmed: <strong><?= $confirmedBookings ?></strong></p>
+            <p>Pending: <strong><?= $pendingBookings ?></strong></p>
         </div>
 
         <!-- Earnings -->
         <div class="dashboard-card">
             <h3>💰 Earnings</h3>
-            <p>This Week: <strong>₱--</strong></p>
-            <p>Total: <strong>₱--</strong></p>
+            <p>This Week: <strong>₱<?= number_format($weeklyEarnings, 2) ?></strong></p>
+            <p>Total: <strong>₱<?= number_format($totalEarnings, 2) ?></strong></p>
         </div>
 
         <!-- Payout Info -->
         <div class="dashboard-card">
             <h3>📅 Payouts</h3>
-            <p>Last: <strong>--</strong></p>
-            <p>Next: <strong>--</strong></p>
+            <p>Last: <strong><?= $lastPayout ?></strong></p>
+            <p>Next: <strong><?= $nextPayout ?></strong></p>
         </div>
     </div>
 </div>
