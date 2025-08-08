@@ -127,3 +127,61 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    font-family: Arial, sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+}
+
+.modal-buttons button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.modal-buttons .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.modal-buttons .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
