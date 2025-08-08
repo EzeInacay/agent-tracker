@@ -92,85 +92,91 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_request"])) {
 <main class="dashboard-content">
 
   <!-- Agent Requests -->
-  <div class="semi-transparent-box">
-    <h2>Agent Requests</h2>
-    <table class="booking-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Full Name</th>
-          <th>Email</th>
-          <th>Contact</th>
-          <th>Address</th>
-          <th>Status</th>
-          <th>Profile</th>
-          <th>Agent ID</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        $result = $conn->query("SELECT * FROM requests WHERE status = 'pending'");
-        while ($row = $result->fetch_assoc()) {
-          echo "<tr>
-            <td>" . htmlspecialchars($row['id']) . "</td>
-            <td>" . htmlspecialchars($row['full_name']) . "</td>
-            <td>" . htmlspecialchars($row['email']) . "</td>
-            <td>" . htmlspecialchars($row['contact_number']) . "</td>
-            <td>" . htmlspecialchars($row['address']) . "</td>
-            <td>" . htmlspecialchars($row['status']) . "</td>
-            <td><img src='" . htmlspecialchars($row['profile_pic']) . "' alt='Profile'></td>
-            <td>
-              <form method='POST' style='display:inline-block'>
-                <input type='hidden' name='request_id' value='" . $row['id'] . "'>
-                <input type='text' name='agent_id' required placeholder='Enter Agent ID'>
-            </td>
-            <td>
-                <button type='submit' name='accept_request'>Accept</button>
-              </form>
-              <form method='POST' style='display:inline-block'>
-                <input type='hidden' name='request_id' value='" . $row['id'] . "'>
-                <button type='submit' name='delete_request' onclick=\"return confirm('Are you sure you want to reject this request?');\">Delete</button>
-              </form>
-            </td>
-          </tr>";
-        }
-        ?>
-      </tbody>
-    </table>
-  </div>
+<div class="semi-transparent-box">
+  <h2>Agent Requests</h2>
+  <table class="booking-table">
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Contact</th>
+        <th>Address</th>
+        <th>Status</th>
+        <th>Profile</th>
+        <th>Agent ID</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      $result = $conn->query("SELECT * FROM requests WHERE status = 'pending'");
+      while ($row = $result->fetch_assoc()) {
+        echo "<tr>
+          <td>" . htmlspecialchars($row['full_name']) . "</td>
+          <td>" . htmlspecialchars($row['email']) . "</td>
+          <td>" . htmlspecialchars($row['contact_number']) . "</td>
+          <td>" . htmlspecialchars($row['address']) . "</td>
+          <td>" . htmlspecialchars($row['status']) . "</td>
+          <td><img src='" . htmlspecialchars($row['profile_pic']) . "' alt='Profile' style='width:50px; height:50px; object-fit:cover; border-radius:50%;'></td>
+          <td>
+            <form method='POST' style='display:inline-block'>
+              <input type='hidden' name='request_id' value='" . $row['id'] . "'>
+              <input type='text' name='agent_id' required placeholder='Enter Agent ID'>
+          </td>
+          <td>
+              <button type='submit' name='accept_request'>Accept</button>
+            </form>
+            <form method='POST' style='display:inline-block'>
+              <input type='hidden' name='request_id' value='" . $row['id'] . "'>
+              <button type='submit' name='delete_request' onclick=\"return confirm('Are you sure you want to reject this request?');\">Delete</button>
+            </form>
+          </td>
+        </tr>";
+      }
+      ?>
+    </tbody>
+  </table>
+</div>
+
 
   <!-- Existing Agents -->
-  <div class="semi-transparent-box">
-    <h2>Existing Agents</h2>
-    <table class="booking-table">
-      <thead>
-        <tr>
-          <th>Agent ID</th>
-          <th>Agent Name</th>
-          <th>Email</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        $result = $conn->query("SELECT * FROM users");
-        while ($row = $result->fetch_assoc()) {
-          echo "<tr>
-            <td>" . htmlspecialchars($row['agent_id']) . "</td>
-            <td>" . htmlspecialchars($row['agent_name']) . "</td>
-            <td>" . htmlspecialchars($row['email']) . "</td>
-            <td>
-              <a href='edit_agent.php?agent_id=" . urlencode($row['agent_id']) . "'><button>Edit</button></a>
-              <a href='delete_agent.php?agent_id=" . urlencode($row['agent_id']) . "' onclick=\"return confirm('Are you sure you want to delete this agent?');\"><button>Delete</button></a>
-            </td>
-          </tr>";
-        }
-        $conn->close();
-        ?>
-      </tbody>
-    </table>
-  </div>
+<div class="semi-transparent-box">
+  <h2>Existing Agents</h2>
+  <table class="booking-table">
+    <thead>
+      <tr>
+        <th>Agent ID</th>
+        <th>Agent Name</th>
+        <th>Email</th>
+        <th>Contact</th>
+        <th>Address</th>
+        <th>Profile</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      $result = $conn->query("SELECT * FROM users");
+      while ($row = $result->fetch_assoc()) {
+        echo "<tr>
+          <td>" . htmlspecialchars($row['agent_id']) . "</td>
+          <td>" . htmlspecialchars($row['agent_name']) . "</td>
+          <td>" . htmlspecialchars($row['email']) . "</td>
+          <td>" . htmlspecialchars($row['contact_number']) . "</td>
+          <td>" . htmlspecialchars($row['address']) . "</td>
+          <td><img src='" . htmlspecialchars($row['profile_pic']) . "' alt='Profile' style='width:50px; height:50px; object-fit:cover; border-radius:50%;'></td>
+          <td>
+            <a href='edit_agent.php?agent_id=" . urlencode($row['agent_id']) . "'><button>Edit</button></a>
+            <a href='delete_agent.php?agent_id=" . urlencode($row['agent_id']) . "' onclick=\"return confirm('Are you sure you want to delete this agent?');\"><button>Delete</button></a>
+          </td>
+        </tr>";
+      }
+      $conn->close();
+      ?>
+    </tbody>
+  </table>
+</div>
+
 <!-- Logout Confirmation Modal -->
 <div id="logoutModal" class="modal-overlay" style="display: none;">
     <div class="modal-content">
@@ -201,5 +207,6 @@ function confirmLogout() {
 
 </body>
 </html>
+
 
 
