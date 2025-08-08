@@ -5,23 +5,112 @@ if (!isset($_SESSION['admin_id'])) {
     header("Location: login.html");
     exit();
 }
+
 if (!isset($_GET['agent_id'])) {
     die("Agent ID not specified.");
 }
 
 $agent_id = $_GET['agent_id'];
 
-$conn = new mysqli("localhost", "root", "", "katravel_system");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// If confirmed, proceed to delete
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['confirm_delete'])) {
+    $conn = new mysqli("localhost", "root", "", "katravel_system");
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $stmt = $conn->prepare("DELETE FROM users WHERE agent_id = ?");
+    $stmt->bind_param("s", $agent_id);
+    $stmt->execute();
+
+    $stmt->close();
+    $conn->close();
+
+    header("Location: admin_dashboard.php");
+    exit();
 }
+?>
 
-$stmt = $conn->prepare("DELETE FROM users WHERE agent_id = ?");
-$stmt->bind_param("s", $agent_id);
-$stmt->execute();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Delete</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('raw.png') no-repeat center center fixed;
+            background-size: cover;
+        }
 
-$stmt->close();
-$conn->close();
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            width: 400px;
+            margin: 100px auto;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+        }
 
-header("Location: admin_dashboard.php");
-exit();
+        h2 {
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .confirm {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .confirm:hover {
+            background-color: #c82333;
+        }
+
+        .cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .cancel:hover {
+            background-color: #5a6268;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Confirm Delete</h2>
+        <p>Are you sure you want to delete agent with ID: <strong><?php echo htmlspecialchars($agent_id); ?></strong>?</p>
+
+        <form method="POST">
+            <input type="hidden" name="confirm_delete" value="1">
+            <button type="submit" class="confirm">Yes, Delete</button>
+        </form>
+
+        <a href="admin_dashboard.php"><button class="cancel">Cancel</button></a>
+    </div>
+
+</body>
+</html>
