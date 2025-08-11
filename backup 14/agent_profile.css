@@ -1,0 +1,223 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('raw.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Navbar */
+.navbar {
+    background-color: rgba(0, 123, 255, 0.95);
+    color: #fff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.navbar .left, 
+.navbar .left strong {
+    font-weight: bold;
+}
+
+/* Main Container */
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    margin: 40px auto;
+    padding: 30px;
+    width: 95%;
+    max-width: 950px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Profile Section */
+.profile-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.profile-left {
+    flex: 1;
+    text-align: center;
+}
+
+.profile-pic img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 3px solid #007bff;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.profile-right {
+    flex: 2;
+}
+
+/* Form Inputs */
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Buttons */
+.button-group {
+    margin-top: 25px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 12px 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.green {
+    background-color: #28a745;
+    color: white;
+}
+
+.green:hover {
+    background-color: #218838;
+}
+
+.gray {
+    background-color: #6c757d;
+    color: white;
+}
+
+.gray:hover {
+    background-color: #5a6268;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Modal Base */
+.modal-content {
+    background: rgba(255, 255, 255, 0.97);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+    max-width: 400px;
+    width: 90%;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Change Password Modal */
+.modal-content.change-password h4 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #222;
+}
+
+.modal-content.change-password label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.modal-content.change-password input[type="password"] {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    font-size: 14px;
+}
+
+.modal-content.change-password input[type="password"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+    outline: none;
+}
+
+/* Modal Buttons */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.modal-buttons button {
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    color: white;
+}
+
+.modal-buttons .btn-danger {
+    background-color: #dc3545;
+}
+
+.modal-buttons .btn-danger:hover {
+    background-color: #b52a37;
+}
+
+.modal-buttons .btn-secondary {
+    background-color: #6c757d;
+}
+
+.modal-buttons .btn-secondary:hover {
+    background-color: #565e64;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
