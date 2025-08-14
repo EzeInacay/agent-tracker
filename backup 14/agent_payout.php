@@ -51,12 +51,13 @@ $stmt->bind_param("s", $agentId);
 $stmt->execute();
 $pendingBookings = $stmt->get_result()->fetch_assoc()['pending'] ?? 0;
 
-// Weekly earnings (using start_date as booking date)
+// Weekly earnings
 $sql_weekly = "
-    SELECT SUM(bs.earnings * 0.6) as weekly
+    SELECT SUM((b.final_price - b.ratehawk_price) * 0.6) AS weekly
     FROM booking_status bs
     INNER JOIN bookings b ON bs.booking_id = b.booking_id
-    WHERE b.agent_id = ? AND bs.booking_status = 'Confirmed'
+    WHERE b.agent_id = ? 
+      AND bs.booking_status = 'Confirmed'
       AND DATE(b.start_date) >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
 ";
 $stmt = $conn->prepare($sql_weekly);
@@ -65,16 +66,23 @@ $stmt->execute();
 $weeklyEarnings = $stmt->get_result()->fetch_assoc()['weekly'] ?? 0;
 
 // Total earnings
-$sql_total_earnings = "
-    SELECT SUM(bs.earnings * 0.6) as total
+$sql_total = "
+    SELECT SUM((b.final_price - b.ratehawk_price) * 0.6) AS total
     FROM booking_status bs
     INNER JOIN bookings b ON bs.booking_id = b.booking_id
-    WHERE b.agent_id = ? AND bs.booking_status = 'Confirmed'
+    WHERE b.agent_id = ? 
+      AND bs.booking_status = 'Confirmed'
 ";
-$stmt = $conn->prepare($sql_total_earnings);
+$stmt = $conn->prepare($sql_total);
 $stmt->bind_param("s", $agentId);
 $stmt->execute();
 $totalEarnings = $stmt->get_result()->fetch_assoc()['total'] ?? 0;
+
+// Format for display
+$weeklyEarnings = number_format($weeklyEarnings, 2);
+$totalEarnings = number_format($totalEarnings, 2);
+
+
 
 // Last payout
 $sql_last_payout = "
