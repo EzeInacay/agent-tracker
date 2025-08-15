@@ -1,0 +1,77 @@
+/* ====== GLOBAL MOBILE RESET ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Ensure images, videos, and iframes scale properly */
+img, video, iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Base typography */
+body {
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: Arial, sans-serif;
+    word-wrap: break-word; /* prevent text overflow */
+}
+
+/* Container for responsive layouts */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 15px;
+}
+
+/* ====== RESPONSIVE BREAKPOINTS ====== */
+
+/* Large tablets and smaller */
+@media (max-width: 1024px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+/* Tablets and small laptops */
+@media (max-width: 768px) {
+    .row {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Navbar adjustments */
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    button, input, select, textarea {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    /* Make tables scrollable on small screens */
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .booking-table {
+        min-width: 600px; /* keeps columns from squishing too much */
+    }
+}
