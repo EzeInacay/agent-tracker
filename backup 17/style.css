@@ -1,0 +1,256 @@
+/* Reset and common styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f5f5f5;
+}
+
+/* Login Page */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  width: 300px;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container label {
+  margin-top: 10px;
+}
+
+.login-container input, .login-container select {
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.login-container button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #007bff;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* Dashboard */
+.dashboard-content {
+  padding: 30px;
+}
+
+.booking-form {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-form label {
+  margin-bottom: 15px;
+}
+
+.booking-form input {
+  padding: 8px;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.booking-form button {
+  padding: 12px;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  
+
+}
+
+/* Booking Table */
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.booking-table th,
+.booking-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.booking-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.booking-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.agent-form {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  margin: 20px auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.agent-form label {
+  margin-bottom: 10px;
+}
+
+.agent-form input {
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.agent-form button {
+  padding: 10px;
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  body {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-side,
+  .right-side {
+    width: 100%;
+    padding: 30px;
+  }
+
+  .left-side {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  nav a {
+    display: inline-block;
+    margin: 10px 15px;
+  }
+
+  .contact-box {
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .left-side {
+    padding: 20px;
+    font-size: 0.9rem;
+  }
+
+  .right-side {
+    padding: 20px;
+  }
+
+  .login-form {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .login-form h2 {
+    font-size: 20px;
+  }
+
+  .login-form input,
+  .login-form select,
+  .login-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    background-position: center;
+  }
+
+  .left-side h1 {
+    font-size: 24px;
+  }
+
+  nav a {
+    margin: 8px;
+    font-size: 14px;
+  }
+
+  .login-form h2 {
+    font-size: 18px;
+  }
+
+  .login-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

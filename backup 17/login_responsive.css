@@ -1,0 +1,104 @@
+/* ====== MOBILE RESPONSIVE RESET ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Ensure images & embeds scale */
+img, video, iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Make text more readable on small screens */
+body {
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: Arial, sans-serif;
+    word-wrap: break-word;
+    background: url('raw.png') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Login form container */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* Form elements */
+.login-container h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #000;
+}
+
+.login-container input,
+.login-container select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+    .login-container {
+        max-width: 90%;
+        padding: 20px;
+    }
+
+    .login-container h1 {
+        font-size: 24px;
+    }
+
+    .login-container input,
+    .login-container select,
+    .login-container button {
+        font-size: 15px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 15px;
+        max-width: 95%;
+    }
+
+    .login-container h1 {
+        font-size: 20px;
+    }
+
+    .login-container input,
+    .login-container select,
+    .login-container button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
