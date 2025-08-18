@@ -1,0 +1,40 @@
+/* General form styling */
+form {
+    width: 100%;
+    max-width: 400px; /* Prevents it from stretching too wide on desktop */
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Make inputs take full width */
+form input, 
+form textarea, 
+form button {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    body {
+        background-size: cover; /* Make background fill mobile screen */
+    }
+
+    form {
+        max-width: 90%; /* Form fills most of the screen */
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 24px; /* Slightly smaller title on mobile */
+        text-align: center;
+    }
+
+    form input, 
+    form textarea, 
+    form button {
+        font-size: 16px; /* Easier to tap on mobile */
+        padding: 10px;
+    }
+}
