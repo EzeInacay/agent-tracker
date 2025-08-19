@@ -85,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_request"])) {
 <nav class="navbar">
   <div class="navbar-left">Welcome, <?php echo htmlspecialchars($adminName); ?></div>
   <div class="navbar-right">
+	<a href="analytics.php">Analytics</a>
     <a href="admin_requests.php">Payout Requests</a>
     <a href="admin_bookings.php">Booking History</a>
     <a href="admin_dashboard.php">Dashboard</a>
@@ -175,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_request"])) {
               <img src='" . htmlspecialchars($row['profile_pic']) . "' alt='Profile'>
             </td>
             <td data-label='Action'>
-              <a href='edit_agent.php?agent_id=" . urlencode($row['agent_id']) . "'><button>Edit</button></a>
+              <a href='view_agent.php?agent_id=" . urlencode($row['agent_id']) . "'><button>View Profile</button></a>
               <a href='delete_agent.php?agent_id=" . urlencode($row['agent_id']) . "' onclick=\"return confirm('Are you sure you want to delete this agent?');\"><button>Delete</button></a>
             </td>
           </tr>";

@@ -22,24 +22,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $stmt = $conn->prepare("UPDATE users SET agent_id=?, agent_name=?, email=?, contact_number=?, address=? WHERE agent_id=?");
     $stmt->bind_param("ssssss", $agent_id, $agent_name, $email, $contact_number, $address, $original_agent_id);
-    $stmt->execute();
-    $stmt->close();
-
-    header("Location: admin_dashboard.php");
-    exit();
+    if ($stmt->execute()) {
+        header("Location: view_agent.php?agent_id=" . urlencode($agent_id));
+        exit();
+    } else {
+        die("Failed to update agent: " . $stmt->error);
+    }
 }
 
 // Display form
 if (!isset($_GET['agent_id'])) {
-    die("Agent ID missing");
+    die("Agent ID missing in URL.");
 }
 
 $agent_id = $_GET['agent_id'];
-$result = $conn->query("SELECT * FROM users WHERE agent_id = '$agent_id'");
+
+// Use prepared statement to fetch agent
+$stmt = $conn->prepare("SELECT * FROM users WHERE agent_id = ?");
+$stmt->bind_param("s", $agent_id);
+$stmt->execute();
+$result = $stmt->get_result();
 $agent = $result->fetch_assoc();
+$stmt->close();
 
 if (!$agent) {
-    die("Agent not found");
+    die("Agent not found. Please check the agent_id in the URL.");
 }
 ?>
 
@@ -49,7 +56,7 @@ if (!$agent) {
     <meta charset="UTF-8">
     <title>Edit Agent</title>
     <style>
-        body {
+                body {
             background: url('raw.png') no-repeat center center fixed;
             background-size: cover;
             font-family: Arial, sans-serif;
@@ -201,46 +208,39 @@ if (!$agent) {
   }
 }
     </style>
-    <script>
-        function confirmSubmit() {
-            return confirm("Are you sure you want to save changes?");
-        }
-    </script>
 </head>
 <body>
-
     <div class="container">
         <h2>Edit Agent</h2>
 
         <?php if (!empty($agent['profile_pic']) && file_exists($agent['profile_pic'])): ?>
-            <img class="profile-pic" src="<?php echo $agent['profile_pic']; ?>" alt="Profile Picture">
+            <img class="profile-pic" src="<?= htmlspecialchars($agent['profile_pic']) ?>" alt="Profile Picture">
         <?php else: ?>
             <img class="profile-pic" src="default_avatar.png" alt="Profile Picture">
         <?php endif; ?>
 
-        <form method="POST" onsubmit="return confirmSubmit();">
-            <input type="hidden" name="original_agent_id" value="<?php echo htmlspecialchars($agent['agent_id']); ?>">
+        <form method="POST" onsubmit="return confirm('Are you sure you want to save changes?');">
+            <input type="hidden" name="original_agent_id" value="<?= htmlspecialchars($agent['agent_id']) ?>">
 
             <label>Agent Name</label>
-            <input type="text" name="agent_name" value="<?php echo htmlspecialchars($agent['agent_name']); ?>" required>
+            <input type="text" name="agent_name" value="<?= htmlspecialchars($agent['agent_name']) ?>" required>
 
             <label>Email</label>
-            <input type="email" name="email" value="<?php echo htmlspecialchars($agent['email']); ?>" required>
+            <input type="email" name="email" value="<?= htmlspecialchars($agent['email']) ?>" required>
 
             <label>Agent ID</label>
-            <input type="text" name="agent_id" value="<?php echo htmlspecialchars($agent['agent_id']); ?>" required>
+            <input type="text" name="agent_id" value="<?= htmlspecialchars($agent['agent_id']) ?>" required>
 
             <label>Contact</label>
-            <input type="text" name="contact_number" value="<?php echo htmlspecialchars($agent['contact_number']); ?>" required>
+            <input type="text" name="contact_number" value="<?= htmlspecialchars($agent['contact_number']) ?>" required>
 
             <label>Address</label>
-            <input type="text" name="address" value="<?php echo htmlspecialchars($agent['address']); ?>" required>
+            <input type="text" name="address" value="<?= htmlspecialchars($agent['address']) ?>" required>
 
             <button type="submit">Save Changes</button>
         </form>
 
-        <a href="admin_dashboard.php">← Back to Dashboard</a>
+        <a href="view_agent.php?agent_id=<?= urlencode($agent['agent_id']) ?>" style="display:inline-block; margin-top:15px; padding:10px 15px; background:#007bff; color:white; border-radius:8px; text-decoration:none; font-weight:bold;">View Profile</a>
     </div>
-
 </body>
 </html>
