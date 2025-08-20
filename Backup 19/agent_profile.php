@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 $agent_id = $_SESSION['agent_id'] ?? null;
 
@@ -22,6 +21,44 @@ if ($agent_id) {
     $agentData = $result->fetch_assoc();
 }
 
+// Fetch analytics data (daily earnings + bookings)
+$analytics_sql = "
+    SELECT DATE(bs.commission_date) AS day,
+           SUM(b.final_price - b.ratehawk_price) AS total_income,
+           COUNT(b.booking_id) AS total_bookings
+    FROM bookings b
+    JOIN booking_status bs ON b.booking_id = bs.booking_id
+    WHERE b.agent_id = ?
+    GROUP BY DATE(bs.commission_date)
+    ORDER BY day ASC
+";
+$stmt = $conn->prepare($analytics_sql);
+$stmt->bind_param("i", $agent_id);
+$stmt->execute();
+$analytics_result = $stmt->get_result();
+
+$days = [];
+$income_data = [];
+$bookings_data = [];
+while ($row = $analytics_result->fetch_assoc()) {
+    $days[] = $row['day'];
+    $income_data[] = $row['total_income'] ?? 0;
+    $bookings_data[] = $row['total_bookings'] ?? 0;
+}
+
+$conn->close();
+
+// Function to calculate Y-axis max for bookings
+function calculateYAxisMax($data) {
+    $max = 20;
+    $dataMax = max($data);
+    while ($dataMax > $max) {
+        $max += 5;
+    }
+    return $max;
+}
+$bookingsMax = calculateYAxisMax($bookings_data);
+$incomeMax = max($income_data);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +66,7 @@ if ($agent_id) {
     <meta charset="UTF-8">
     <title>Agent Profile</title>
     <link rel="stylesheet" href="agent_profile.css">
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -77,10 +114,24 @@ if ($agent_id) {
                 <textarea name="address" rows="3"><?= htmlspecialchars($agentData['address'] ?? '') ?></textarea>
 
                 <div class="button-group">
-                    <!-- Only one "Change Password" button now -->
                     <button type="button" class="btn gray" onclick="openPasswordModal()">Change Password</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- ANALYTICS SECTION -->
+    <div class="analytics-section" style="margin-top:40px;">
+        <h2>My Analytics</h2>
+        <div style="display:flex; flex-wrap:wrap; gap:20px;">
+            <div style="flex:1; min-width:300px;">
+                <h3 style="text-align:center;">Total Earnings</h3>
+                <canvas id="incomeChart"></canvas>
+            </div>
+            <div style="flex:1; min-width:300px;">
+                <h3 style="text-align:center;">Total Bookings</h3>
+                <canvas id="bookingsChart"></canvas>
+            </div>
         </div>
     </div>
 </div>
@@ -122,56 +173,67 @@ if ($agent_id) {
     </div>
 </div>
 
-<!-- Success Modal -->
-<div id="successModal" class="modal-overlay" style="display: none;">
-    <div class="modal-content success">
-        <h3>Password Changed</h3>
-        <p>Your password has been updated successfully.</p>
-        <div class="modal-buttons">
-            <button onclick="closeSuccessModal()" class="btn btn-success">OK</button>
-        </div>
-    </div>
-</div>
-
-
 <script>
-function openLogoutModal() {
-    document.getElementById('logoutModal').style.display = 'flex';
-}
-function closeLogoutModal() {
-    document.getElementById('logoutModal').style.display = 'none';
-}
-function confirmLogout() {
-    window.location.href = 'logout.php';
-}
-function openPasswordModal() {
-    document.getElementById('passwordModal').style.display = 'flex';
-}
-function closePasswordModal() {
-    document.getElementById('passwordModal').style.display = 'none';
-}
-function openPasswordModal() {
-    document.getElementById('passwordModal').style.display = 'flex';
-}
-function closePasswordModal() {
-    document.getElementById('passwordModal').style.display = 'none';
-}
-function openSuccessModal() {
-    document.getElementById('successModal').style.display = 'flex';
-}
-function closeSuccessModal() {
-    document.getElementById('successModal').style.display = 'none';
-}
+function openLogoutModal() { document.getElementById('logoutModal').style.display = 'flex'; }
+function closeLogoutModal() { document.getElementById('logoutModal').style.display = 'none'; }
+function confirmLogout() { window.location.href = 'logout.php'; }
 
-</script>
+function openPasswordModal() { document.getElementById('passwordModal').style.display = 'flex'; }
+function closePasswordModal() { document.getElementById('passwordModal').style.display = 'none'; }
 
-<?php if (isset($_GET['password_changed']) && $_GET['password_changed'] == 1): ?>
-<script>
-    window.onload = function() {
-        openSuccessModal();
-    };
+// Analytics Data
+const days = <?= json_encode($days) ?>;
+const incomeData = <?= json_encode($income_data) ?>;
+const bookingsData = <?= json_encode($bookings_data) ?>;
+const incomeMax = <?= $incomeMax ?>;
+const bookingsMax = <?= $bookingsMax ?>;
+
+// Total Earnings Chart
+new Chart(document.getElementById('incomeChart').getContext('2d'), {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Earnings (₱)',
+            data: incomeData,
+            borderColor: 'blue',
+            backgroundColor: 'rgba(0,0,255,0.2)',
+            fill: true,
+            tension: 0.2
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true, max: incomeMax, ticks: { callback: value => Math.round(value) } }
+        },
+        plugins: { legend: { display: false } }
+    }
+});
+
+// Total Bookings Chart
+new Chart(document.getElementById('bookingsChart').getContext('2d'), {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Bookings',
+            data: bookingsData,
+            borderColor: 'green',
+            backgroundColor: 'rgba(0,255,0,0.2)',
+            fill: true,
+            tension: 0.2
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true, max: bookingsMax, ticks: { stepSize: 1 } }
+        },
+        plugins: { legend: { display: false } }
+    }
+});
 </script>
-<?php endif; ?>
 
 </body>
 </html>
