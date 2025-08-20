@@ -70,6 +70,7 @@ $statuses = ['Pending', 'Confirmed', 'Cancelled', 'Completed'];
 <div class="navbar">
     <div>Agent: <?= htmlspecialchars($agentName) ?></div>
     <div>
+        <a href="agent_analytics.php">Analytics</a>
         <a href="agent_profile.php">Profile</a>
         <a href="agent_dashboard.php">New Booking</a>
         <a href="agent_payout.php">Dashboard</a>
@@ -199,3 +200,4 @@ function confirmLogout() {
 </body>
 </html>
 <?php $conn->close(); ?>
+
