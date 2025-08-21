@@ -50,8 +50,16 @@ while ($row = $daily_result->fetch_assoc()) {
     $bookings_data[] = $row['total_bookings'] ?? 0;
 }
 
+// ✅ Prevent empty arrays from breaking max()
+if (empty($days)) {
+    $days = [date("Y-m-d")];  // today's date as placeholder
+    $income_data = [0];
+    $bookings_data = [0];
+}
+
 // Function to calculate Y-axis max (start at 20, increase by 5)
 function calculateYAxisMax($data) {
+    if (empty($data)) return 20; // default safe value
     $max = 20;
     $dataMax = max($data);
     while ($dataMax > $max) {
@@ -271,3 +279,4 @@ new Chart(document.getElementById('bookingsChart').getContext('2d'), {
 </script>
 </body>
 </html>
+
