@@ -101,9 +101,13 @@ $paid = $stmt->get_result()->fetch_assoc()['paid'] ?? 0;
 // 📌 Net earnings (Gross - Paid)
 $totalEarnings = $gross - $paid;
 
-// Format nicely
+// ✅ Keep raw numeric value
+$rawTotalEarnings = max($totalEarnings, 0);
+
+// ✅ Format for display
 $weeklyEarnings = number_format(max($weeklyEarnings, 0), 2);
-$totalEarnings = number_format(max($totalEarnings, 0), 2);
+$displayTotalEarnings = number_format($rawTotalEarnings, 2);
+
 
 /* ================== PAYOUT REQUEST HISTORY ================== */
 $sql = "SELECT request_id, request_date, amount, mode, provider, details, remarks, status, approval_date 
@@ -154,12 +158,13 @@ $conn->close();
     <p>Cancelled: <strong><?= $cancelledBookings ?></strong></p>
 </div>
 
-        <!-- Earnings -->
-        <div class="dashboard-card large">
-            <h3>💰 Earnings</h3>
-            <p>This Week: <strong>₱<?= $weeklyEarnings ?></strong></p>
-            <p>Total Available: <strong>₱<?= $totalEarnings ?></strong></p>
-        </div>
+<!-- Earnings -->
+<div class="dashboard-card large">
+    <h3>💰 Earnings</h3>
+    <p>This Week: <strong>₱<?= $weeklyEarnings ?></strong></p>
+    <p>Available Balance: <strong>₱<?= $displayTotalEarnings ?></strong></p>
+</div>
+
 
         <!-- Request Payout -->
         <div class="dashboard-card full">
@@ -251,12 +256,14 @@ $conn->close();
                 <input type="text" name="remarks" required>
             </div>
 
-            <!-- Amount -->
-            <div class="form-group">
-                <label>Amount:</label>
-                <input type="number" id="amountInput" name="amount" max="<?= $totalEarnings ?>" step="0.01" required>
-                <small>Max: ₱<?= $totalEarnings ?></small>
-            </div>
+        <!-- Amount -->
+<div class="form-group">
+    <label>Amount:</label>
+    <input type="number" id="amountInput" name="amount" 
+           max="<?= $rawTotalEarnings ?>" step="0.01" required>
+    <small>Max: ₱<?= $displayTotalEarnings ?></small>
+</div>
+
 
             <!-- Buttons -->
             <div class="form-buttons">
@@ -354,17 +361,18 @@ function toggleProviders() {
     }
 }
 
-/* ✅ Validate request amount */
 function validateAmount() {
-    const max = parseFloat("<?= $totalEarnings ?>");
+    const max = parseFloat("<?= $rawTotalEarnings ?>"); // ✅ raw number
     const input = parseFloat(document.getElementById("amountInput").value);
 
     if (input > max) {
-        alert("❌ You cannot request more than your available earnings (₱" + max + ").");
+        alert("❌ You cannot request more than your available earnings (₱" + 
+              max.toLocaleString(undefined, {minimumFractionDigits:2}) + ").");
         return false;
     }
     return true;
 }
+
 
 function openLogoutModal(){ document.getElementById('logoutModal').style.display='flex'; }
 function closeLogoutModal(){ document.getElementById('logoutModal').style.display='none'; }
