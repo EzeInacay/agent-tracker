@@ -1,0 +1,140 @@
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.modal-buttons .btn {
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s ease;
+}
+
+.modal-buttons .btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.modal-buttons .btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  body {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-side,
+  .right-side {
+    width: 100%;
+    padding: 30px;
+  }
+
+  .left-side {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  nav a {
+    display: inline-block;
+    margin: 10px 15px;
+  }
+
+  .contact-box {
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .left-side {
+    padding: 20px;
+    font-size: 0.9rem;
+  }
+
+  .right-side {
+    padding: 20px;
+  }
+
+  .login-form {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .login-form h2 {
+    font-size: 20px;
+  }
+
+  .login-form input,
+  .login-form select,
+  .login-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    background-position: center;
+  }
+
+  .left-side h1 {
+    font-size: 24px;
+  }
+
+  nav a {
+    margin: 8px;
+    font-size: 14px;
+  }
+
+  .login-form h2 {
+    font-size: 18px;
+  }
+
+  .login-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
