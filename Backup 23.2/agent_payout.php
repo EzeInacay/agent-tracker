@@ -45,6 +45,25 @@ $stmt->bind_param("i", $agentId);
 $stmt->execute();
 $pendingBookings = $stmt->get_result()->fetch_assoc()['pending'] ?? 0;
 
+// 📌 Completed bookings ✅ fixed
+$sql = "SELECT COUNT(*) as completed FROM booking_status bs
+        INNER JOIN bookings b ON bs.booking_id = b.booking_id
+        WHERE b.agent_id = ? AND bs.booking_status='Completed'";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $agentId);
+$stmt->execute();
+$completedBookings = $stmt->get_result()->fetch_assoc()['completed'] ?? 0;
+
+// 📌 Cancelled bookings ✅ fixed
+$sql = "SELECT COUNT(*) as cancelled FROM booking_status bs
+        INNER JOIN bookings b ON bs.booking_id = b.booking_id
+        WHERE b.agent_id = ? AND bs.booking_status='Cancelled'";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $agentId);
+$stmt->execute();
+$cancelledBookings = $stmt->get_result()->fetch_assoc()['cancelled'] ?? 0;
+
+
 /* ================== EARNINGS ================== */
 
 // 📌 Weekly earnings (only last 7 days)
@@ -126,12 +145,14 @@ $conn->close();
 <div class="main-container">
     <div class="card-container">
         <!-- Booking -->
-        <div class="dashboard-card large">
-            <h3>📋 Booking Status</h3>
-            <p>Total: <strong><?= $totalBookings ?></strong></p>
-            <p>Confirmed: <strong><?= $confirmedBookings ?></strong></p>
-            <p>Pending: <strong><?= $pendingBookings ?></strong></p>
-        </div>
+<div class="dashboard-card large">
+    <h3>📋 Booking Status</h3>
+    <p>Total: <strong><?= $totalBookings ?></strong></p>
+    <p>Confirmed: <strong><?= $confirmedBookings ?></strong></p>
+    <p>Pending: <strong><?= $pendingBookings ?></strong></p>
+    <p>Completed: <strong><?= $completedBookings ?></strong></p>
+    <p>Cancelled: <strong><?= $cancelledBookings ?></strong></p>
+</div>
 
         <!-- Earnings -->
         <div class="dashboard-card large">
