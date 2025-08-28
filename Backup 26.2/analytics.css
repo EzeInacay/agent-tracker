@@ -1,0 +1,204 @@
+/* ==================== analytics.css ==================== */
+
+/* Global */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('raw.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* ==================== Navbar ==================== */
+.navbar {
+    background-color: rgba(0, 123, 255, 0.95);
+    color: #fff;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* ensures responsive fit */
+}
+
+.navbar .right {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .navbar .right {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .navbar a {
+        text-align: center;
+        font-size: 13px;
+        padding: 8px 5px;
+    }
+}
+
+/* ==================== Dashboard ==================== */
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    margin: 40px auto;
+    width: 95%;
+    max-width: 1200px;
+    gap: 20px;
+}
+
+/* Analytics Panels Layout */
+.analytics-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Rankings Panel */
+.rankings-panel {
+    flex: 1;
+    min-width: 300px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.rankings-panel h3 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+.rankings-panel table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.rankings-panel th,
+.rankings-panel td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+.rankings-panel th {
+    background: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+.rankings-panel tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+/* Charts Panel */
+.charts-panel {
+    flex: 2;
+    min-width: 300px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.charts-panel h3 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+canvas {
+    width: 100% !important;
+    max-height: 400px;
+    margin-top: 20px;
+}
+
+/* Responsive Panels */
+@media (max-width: 900px) {
+    .analytics-container {
+        flex-direction: column;
+    }
+}
+
+/* ==================== Logout Modal ==================== */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-content {
+    background: rgba(255, 255, 255, 0.98);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+.modal-overlay.show .modal-content {
+    transform: scale(1);
+}
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.modal-buttons button {
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+.modal-buttons .btn-danger {
+    background: #dc3545;
+    color: #fff;
+}
+.modal-buttons .btn-danger:hover {
+    background: #b52a37;
+}
+.modal-buttons .btn-secondary {
+    background: #6c757d;
+    color: #fff;
+}
+.modal-buttons .btn-secondary:hover {
+    background: #5a6268;
+}
+
+/* ==================== Notification Dot ==================== */
+#dashboardLink { position: relative; }
+.notif-dot {
+    position: absolute;
+    top: -2px; right: -10px;
+    width: 10px; height: 10px;
+    background: #dc3545;
+    border-radius: 50%;
+    display: none;
+}
