@@ -153,7 +153,6 @@ COMMIT;
 ___________________________________________________________________________________________________________________________
 
 
-
 -- ============================================================
 -- DATABASE: katravel_system
 -- This schema handles admins, agents, bookings, payouts,
@@ -183,8 +182,10 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- ============================================================
 -- Bookings Table
--- Removed hotel_booked and total_price
--- Added commission_rate
+-- Removed: hotel_booked, total_price
+-- Changed: ratehawk_price → contracting_rate
+-- Changed: final_price → published_rate
+-- Added: commission_rate
 -- ============================================================
 CREATE TABLE IF NOT EXISTS bookings (
     booking_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -192,15 +193,15 @@ CREATE TABLE IF NOT EXISTS bookings (
     client_name VARCHAR(100) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    ratehawk_price DECIMAL(10,2) NOT NULL,
-    final_price DECIMAL(10,2) NOT NULL,
+    contracting_rate DECIMAL(10,2) NOT NULL,
+    published_rate DECIMAL(10,2) NOT NULL,
     commission_rate DECIMAL(5,2) NOT NULL DEFAULT 60.00,
     FOREIGN KEY (agent_id) REFERENCES users(agent_id) ON DELETE CASCADE
 );
 
 -- ============================================================
 -- Booking Status Table
--- Removed payout_date
+-- Removed: payout_date
 -- ============================================================
 CREATE TABLE IF NOT EXISTS booking_status (
     status_id INT AUTO_INCREMENT PRIMARY KEY,
