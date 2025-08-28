@@ -240,4 +240,3 @@ CREATE TABLE IF NOT EXISTS payout_requests (
     seen TINYINT(1) DEFAULT 0,
     FOREIGN KEY (agent_id) REFERENCES users(agent_id) ON DELETE CASCADE
 );
-
