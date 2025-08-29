@@ -115,34 +115,39 @@ body {
     border-radius: 50%;
 }
 
-/* ===== Buttons ===== */
+/* ===== Buttons in tables ===== */
 .booking-table button {
     padding: 6px 12px;
     margin: 2px;
     cursor: pointer;
     border: none;
-    color: #fff;
     font-weight: bold;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-    background-color: #dc3545;
+    color: #fff;
 }
 
-.booking-table button[type="submit"],
-.booking-table a button {
-    background-color: #28a745;
+/* Accept and View buttons (green) */
+.booking-table button.accept,
+.booking-table button.view {
+    background-color: #28a745; /* green */
 }
 
-.booking-table button[name="delete_request"],
-.booking-table button[name="delete_agent"],
-.booking-table a[href*="delete"] button {
-    background-color: #dc3545;
+.booking-table button.accept:hover,
+.booking-table button.view:hover {
+    background-color: #218838; /* darker green */
 }
 
-.booking-table button:hover {
-    opacity: 0.9;
+/* Delete buttons (red) */
+.booking-table button.btn-delete {
+    background-color: #dc3545; /* red */
 }
 
+.booking-table button.btn-delete:hover {
+    background-color: #c82333; /* darker red */
+}
+
+/* Input fields inside table */
 .booking-table input[type="text"] {
     padding: 6px;
     width: 120px;
@@ -235,3 +240,4 @@ body {
 .table-container table {
     min-width: 800px;
 }
+
