@@ -139,17 +139,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_agent"])) {
                         <input type='text' name='agent_id' required placeholder='Enter Agent ID'>
                 </td>
                 <td data-label='Action'>
-                        <button type='submit' name='accept_request'>Accept</button>
+                        <button type='submit' name='accept_request' class='accept'>Accept</button>
                     </form>
-<form method='POST' style='display:inline-block' onsubmit='event.preventDefault(); openDeleteModal(this);'>
-    <input type='hidden' name='request_id' value='" . $row['id'] . "'>
-    <!-- 🔹 ensures delete_request is sent -->
-    <input type='hidden' name='delete_request' value='1'>
-    <button type='submit'>Delete</button>
-</form>
-
-
-
+                    <form method='POST' style='display:inline-block' onsubmit='event.preventDefault(); openDeleteModal(this);'>
+                      <input type='hidden' name='request_id' value='" . $row['id'] . "'>
+                      <!-- 🔹 ensures delete_request is sent -->
+                      <input type='hidden' name='delete_request' value='1'>
+                      <button type='submit' name='delete_request' class='btn-delete'>Delete</button>
+                    </form>
                 </td>
             </tr>";
         }
@@ -220,15 +217,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_agent"])) {
                 <td data-label='Contact'>" . htmlspecialchars($row['contact_number']) . "</td>
                 <td data-label='Commission Rate'>" . number_format($row['commission_rate'], 2) . "%</td>
                 <td data-label='Profile'><img src='" . htmlspecialchars($row['profile_pic']) . "' alt='Profile'></td>
-                <td data-label='Action'>
-                    <a href='view_agent.php?agent_id=" . urlencode($row['agent_id']) . "'><button>View Profile</button></a>
+                 <td data-label='Action'>
+                    <a href='view_agent.php?agent_id=" . urlencode($row['agent_id']) . "'><button class='view'>View Profile</button></a>
                     <form method='POST' style='display:inline-block' onsubmit='event.preventDefault(); openDeleteModal(this);'>
-    <input type='hidden' name='agent_id' value='" . htmlspecialchars($row['agent_id'], ENT_QUOTES) . "'>
-    <!-- 🔹 ensures the delete_agent flag is always posted -->
-    <input type='hidden' name='delete_agent' value='1'>
-    <button type='submit' class='btn-delete'>Delete</button>
-</form>
-
+                      <input type='hidden' name='agent_id' value='" . htmlspecialchars($row['agent_id'], ENT_QUOTES) . "'>
+                      <!-- 🔹 ensures the delete_agent flag is always posted -->
+                      <input type='hidden' name='delete_agent' value='1'>
+                      <button type='submit' name='delete_agent' class='btn-delete'>Delete</button>
+                    </form>
                 </td>
             </tr>";
         }
@@ -360,3 +356,4 @@ function confirmDelete() {
 </main>
 </body>
 </html>
+
